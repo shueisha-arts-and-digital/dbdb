@@ -35,7 +35,7 @@ optVersion=$(getVersionByName "$optName")
 exitIfNotExistPortFile "$optName" "$optVersion"
 optPort=$(getPortByName "$optName" "$optVersion")
 
-optUser=_dbdb_mysql
+optUser=root
 optSocket=/tmp/dbdb_mysql_$optPort.sock
 installDir=$(getInstallDir $(getType))
 dir=$installDir/versions/$optVersion
