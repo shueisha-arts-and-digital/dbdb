@@ -69,7 +69,6 @@ getUrlFileAs() {
     else
       rm -f "$2"
       echo "Download failed or HTTP error for $1" 1>&2
-      exit 1
     fi
   fi
 }
