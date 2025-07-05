@@ -35,6 +35,15 @@ jobs:
           sudo apt install -y libncurses6 libtinfo6
           sudo ldconfig
 
+          echo "=== Installed libaio packages ==="
+          dpkg -l | grep libaio
+          echo "=== Finding libaio files ==="
+          find /usr -name "*libaio*" 2>/dev/null
+          echo "=== ldconfig cache ==="
+          ldconfig -p | grep libaio || echo "libaio not in ldconfig cache"
+          echo "=== /usr/lib search ==="
+          ls -la /usr/lib/x86_64-linux-gnu/*libaio* 2>/dev/null || echo "No libaio in /usr/lib/x86_64-linux-gnu/"
+
       # WARNING Memory overcommit must be enabled! Without it,
       # a background save or replication may fail under low memory condition. Being disabled,
       # it can also cause failures without low memory condition,
