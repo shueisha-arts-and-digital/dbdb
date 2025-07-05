@@ -4,7 +4,7 @@ set -eu
 . ../lib/functions.sh
 
 type=mongodb
-version=7.0.16
+version=4.4.10
 
 cd ../$type/..
 

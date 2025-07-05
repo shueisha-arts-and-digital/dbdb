@@ -9,8 +9,8 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         test_script: [
-          mongodb-6.0.20.sh,
-          mongodb-7.0.16.sh,
+          mongodb-4.4.10.sh,
+          mongodb-5.0.3.sh,
           mysql-8.0.41.sh,
           mysql-8.4.4.sh,
           postgresql-12.4.sh,
@@ -20,8 +20,8 @@ jobs:
           memcached-1.6.31.sh
         ]
         exclude:
-          - {os: ubuntu-latest, test_script: mongodb-6.0.20.sh}
-          - {os: ubuntu-latest, test_script: mongodb-7.0.16.sh}
+          - {os: ubuntu-latest, test_script: mongodb-4.4.10.sh}
+          - {os: ubuntu-latest, test_script: mongodb-5.0.3.sh}
           - {os: ubuntu-latest, test_script: postgresql-12.4.sh}
           - {os: ubuntu-latest, test_script: postgresql-13.2.sh}
     steps:
