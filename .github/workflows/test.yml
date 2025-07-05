@@ -9,6 +9,8 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         test_script: [
+          mongodb-6.0.20.sh,
+          mongodb-7.0.16.sh,
           mysql-8.0.41.sh,
           mysql-8.4.4.sh,
           postgresql-12.4.sh,
@@ -17,6 +19,11 @@ jobs:
           redis-7.2.5.sh,
           memcached-1.6.31.sh
         ]
+        exclude:
+          - {os: ubuntu-latest, test_script: mongodb-6.0.20.sh}
+          - {os: ubuntu-latest, test_script: mongodb-7.0.16.sh}
+          - {os: ubuntu-latest, test_script: postgresql-12.4.sh}
+          - {os: ubuntu-latest, test_script: postgresql-13.2.sh}
     steps:
       - uses: actions/checkout@v4
 
