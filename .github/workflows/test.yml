@@ -27,7 +27,10 @@ jobs:
         if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt update
-          sudo apt install -y libaio1 libnuma1 libmecab2 libssl3 libncurses6 libtinfo6
+          sudo apt install -y libaio1t64 || sudo apt install -y libaio1
+          sudo apt install -y libnuma1 libmecab2
+          sudo apt install -y libssl3t64 || sudo apt install -y libssl3
+          sudo apt install -y libncurses6 libtinfo6
 
       # WARNING Memory overcommit must be enabled! Without it,
       # a background save or replication may fail under low memory condition. Being disabled,
