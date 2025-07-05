@@ -62,13 +62,13 @@ exitIfNotRunningPort() {
 }
 
 getUrlFileAs() {
-  if [ ! -e $2 ]; then
+  if [ ! -e "$2" ]; then
     echo "Downloading... $1" 1>&2
-    if wget $1 -O $2 2>/dev/null || curl $1 -o $2; then
+    if wget --server-response "$1" -O "$2" 2>/dev/null || curl --fail "$1" -o "$2"; then
       :
     else
-      rm -f $2
-      echo "Not found $2" 1>&2
+      rm -f "$2"
+      echo "Download failed or HTTP error for $1" 1>&2
       exit 1
     fi
   fi
