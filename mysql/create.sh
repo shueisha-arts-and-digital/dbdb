@@ -55,7 +55,7 @@ exitIfDuplicatedName $optName
 exitIfExistDir $dir/datadir/$optName
 exitIfRunningPort $optPort
 
-getUrlFileAs https://dbdb.shueisha-artsdigital.co.jp/mysql/$optFileName.tar.gz $optFileName.tar.gz
+getUrlFileAs https://dbdb.shueisha-artsdigital.co.jp/mysql/$optFileName.tar.gz $optFileName.tar.gz || getUrlFileAs https://dbdb.shueisha-artsdigital.co.jp/mysql/$optFileName.tar.xz $optFileName.tar.xz
 mkdir -p $dir/datadir/$optName
 extractFile $dir $optFileName
 
