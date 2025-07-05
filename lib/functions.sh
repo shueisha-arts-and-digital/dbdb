@@ -75,13 +75,20 @@ getUrlFileAs() {
 }
 
 extractFile() {
-  if [ ! -d $1/basedir ]; then
+  if [ ! -d "$1/basedir" ]; then
     echo "Extracting..." 1>&2
-    mkdir -p $1/basedir
-    cd $1/basedir
-    cp $1/$2.tar.gz .
-    tar zxf $2.tar.gz --strip-components 1
-    rm -f $2.tar.gz
+    mkdir -p "$1/basedir"
+    cd "$1/basedir"
+
+    if [ -f "$1/$2.tar.gz" ]; then
+      cp "$1/$2.tar.gz" .
+      tar -xf "$2.tar.gz" --strip-components 1
+      rm -f "$2.tar.gz"
+    elif [ -f "$1/$2.tar.xz" ]; then
+      cp "$1/$2.tar.xz" .
+      tar -xf "$2.tar.xz" --strip-components 1
+      rm -f "$2.tar.xz"
+    fi
   fi
 }
 
