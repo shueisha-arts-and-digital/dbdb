@@ -64,13 +64,17 @@ exitIfNotRunningPort() {
 getUrlFileAs() {
   if [ ! -e "$2" ]; then
     echo "Downloading... $1" 1>&2
-    if wget --server-response "$1" -O "$2" 2>/dev/null || curl --fail "$1" -o "$2"; then
-      :
+    local temp_file="$2.tmp.$$"
+    if wget --server-response "$1" -O "$temp_file" 2>/dev/null || curl --fail --silent "$1" -o "$temp_file"; then
+      mv "$temp_file" "$2"
+      return 0
     else
-      rm -f "$2"
+      rm -f "$temp_file"
       echo "Download failed or HTTP error for $1" 1>&2
+      return 1
     fi
   fi
+  return 0
 }
 
 extractFile() {
