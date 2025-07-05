@@ -10,6 +10,9 @@
                 ||----w |
                 ||     ||
 ```
+## Dependencies
+- `nc`
+- `wget` or `curl`
 
 ## インストール
 
