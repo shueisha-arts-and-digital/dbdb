@@ -22,6 +22,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory
+      - name: Install database dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt update
+          sudo apt install -y libaio1 libnuma1 libmecab2 libssl3 libncurses6 libtinfo6
+
       # WARNING Memory overcommit must be enabled! Without it,
       # a background save or replication may fail under low memory condition. Being disabled,
       # it can also cause failures without low memory condition,
