@@ -9,10 +9,10 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         test_script: [
-          # mongodb-4.4.10.sh,
-          # mongodb-5.0.3.sh,
+          mongodb-4.4.10.sh,
+          mongodb-5.0.3.sh,
           mysql-8.0.41.sh,
-          # mysql-8.4.4.sh,
+          mysql-8.4.4.sh,
           # postgresql-12.4.sh,
           # postgresql-13.2.sh,
           # redis-6.2.14.sh,
@@ -30,9 +30,6 @@ jobs:
           sudo apt install -y libaio1t64 libaio-dev libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
           sudo ln -sf /lib/x86_64-linux-gnu/libaio.so.1t64 /lib/x86_64-linux-gnu/libaio.so.1
           sudo ldconfig
-          echo "=== Final verification ==="
-          ldconfig -p | grep libaio
-          ls -la /lib/x86_64-linux-gnu/libaio.so* 2>/dev/null
 
       # WARNING Memory overcommit must be enabled! Without it,
       # a background save or replication may fail under low memory condition. Being disabled,
