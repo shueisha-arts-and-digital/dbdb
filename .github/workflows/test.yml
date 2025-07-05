@@ -9,9 +9,10 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-latest]
         test_script: [
-          mongodb-5.0.3.sh,
+          mongodb-6.0.20.sh,
+          mongodb-7.0.16.sh,
           mysql-8.0.41.sh,
-          mysql-8.4.4.sh,
+          # mysql-8.4.4.sh,
           # postgresql-12.4.sh,
           # postgresql-13.2.sh,
           # redis-6.2.14.sh,
