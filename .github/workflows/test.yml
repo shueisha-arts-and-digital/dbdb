@@ -7,7 +7,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest]
+        os: [macos-latest, ubuntu-latest]
         test_script: [
           mongodb-4.4.10.sh,
           mongodb-5.0.3.sh,
@@ -19,8 +19,33 @@ jobs:
           redis-7.2.5.sh,
           memcached-1.6.31.sh
         ]
+        exclude:
+          - {os: ubuntu-latest, test_script: mongodb-4.4.10.sh}
+          - {os: ubuntu-latest, test_script: mongodb-5.0.3.sh}
+          - {os: ubuntu-latest, test_script: postgresql-12.4.sh}
+          - {os: ubuntu-latest, test_script: postgresql-13.2.sh}
     steps:
       - uses: actions/checkout@v4
+
+      # mysqld: error while loading shared libraries: libaio.so.1: cannot open shared object file: No such file or directory
+      - name: Install database dependencies
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo apt update
+          sudo apt install -y libaio1t64 libaio-dev libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
+          sudo ln -sf /lib/x86_64-linux-gnu/libaio.so.1t64 /lib/x86_64-linux-gnu/libaio.so.1
+          sudo ldconfig
+
+      # WARNING Memory overcommit must be enabled! Without it,
+      # a background save or replication may fail under low memory condition. Being disabled,
+      # it can also cause failures without low memory condition,
+      # see https://github.com/jemalloc/jemalloc/issues/1328.
+      # To fix this issue add 'vm.overcommit_memory = 1' to /etc/sysctl.conf and then reboot
+      # or run the command 'sysctl vm.overcommit_memory=1' for this to take effect.
+      - name: Enable memory overcommit
+        if: matrix.os == 'ubuntu-latest'
+        run: |
+          sudo sysctl vm.overcommit_memory=1
 
       - name: Run test
         run: |
