@@ -145,8 +145,8 @@ cd dbdb
 
 ### Supported MongoDB Versions
 
+- 6.0.24
 - 7.0.21
-- 8.0.11
 
 </div></details>
 

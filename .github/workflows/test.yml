@@ -11,13 +11,13 @@ jobs:
         test_script: [
           mongodb-6.0.24.sh,
           mongodb-7.0.21.sh,
-          # mysql-8.0.41.sh,
-          # mysql-8.4.4.sh,
-          # postgresql-12.4.sh,
-          # postgresql-13.2.sh,
-          # redis-6.2.14.sh,
-          # redis-7.2.5.sh,
-          # memcached-1.6.31.sh
+          mysql-8.0.41.sh,
+          mysql-8.4.4.sh,
+          postgresql-12.4.sh,
+          postgresql-13.2.sh,
+          redis-6.2.14.sh,
+          redis-7.2.5.sh,
+          memcached-1.6.31.sh
         ]
         exclude:
           - {os: ubuntu-22.04, test_script: postgresql-12.4.sh}
