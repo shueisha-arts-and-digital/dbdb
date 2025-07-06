@@ -30,8 +30,8 @@ jobs:
         if: matrix.os == 'ubuntu-22.04'
         run: |
           sudo apt update
-          sudo apt install -y libaio1t64 libaio-dev libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
-          sudo ln -sf /lib/x86_64-linux-gnu/libaio.so.1t64 /lib/x86_64-linux-gnu/libaio.so.1
+          sudo apt install -y libaio1 libaio-dev libnuma1 libmecab2 libssl3 libncurses6 libtinfo6
+          sudo ln -sf /lib/x86_64-linux-gnu/libaio.so.1 /lib/x86_64-linux-gnu/libaio.so.1 || true
           # # Install newer GLIBC for MongoDB 8.0.11
           # wget http://archive.ubuntu.com/ubuntu/pool/main/g/glibc/libc6_2.38-1ubuntu6_amd64.deb
           # sudo dpkg -i libc6_2.38-1ubuntu6_amd64.deb || true
