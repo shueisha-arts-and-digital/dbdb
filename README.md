@@ -76,7 +76,7 @@ cd dbdb
 ./postgresql/{create|start|stop|restart|port|status|connect|delete}.sh {name} {postgresqlVersion} {port}
 
 # e.g.
-./postgresql/create.sh  pg1 12.4 5432
+./postgresql/create.sh  pg1 12.6 5432
 ./postgresql/start.sh   pg1
 ./postgresql/stop.sh    pg1
 ./postgresql/restart.sh pg1
@@ -88,7 +88,6 @@ cd dbdb
 
 ### Supported PostgreSQL Versions
 
-- 12.4
 - 12.6
 - 13.2
 
@@ -116,9 +115,7 @@ cd dbdb
 
 ### Supported Redis Versions
 
-- 6.0.16
 - 6.2.14
-- 7.0.15
 - 7.2.5
 
 </div></details>

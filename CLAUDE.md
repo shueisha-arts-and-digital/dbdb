@@ -36,16 +36,16 @@ Examples:
 - macos-arm64: 8.0.28, 8.0.41, 8.4.4, 9.2.0
 
 ### PostgreSQL
-- linux-amd64: 12.4, 12.6, 13.2
-- macos-arm64: 12.4, 12.6, 13.2
+- linux-amd64: 12.6, 13.2
+- macos-arm64: 12.6, 13.2
 
 ### MongoDB
 - linux-amd64: 6.0.24, 7.0.21
 - macos-arm64: 6.0.24, 7.0.21
 
 ### Redis
-- linux-amd64: 6.0.16, 6.2.14, 7.0.15, 7.2.5
-- macos-arm64: 6.0.16, 6.2.14, 7.0.15, 7.2.5
+- linux-amd64: 6.2.14, 7.2.5
+- macos-arm64: 6.2.14, 7.2.5
 
 ### Memcached
 - linux-amd64: 1.6.31
