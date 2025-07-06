@@ -115,9 +115,7 @@ cd dbdb
 
 ### Supported Redis Versions
 
-- 6.0.16
 - 6.2.14
-- 7.0.15
 - 7.2.5
 
 </div></details>
