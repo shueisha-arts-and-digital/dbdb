@@ -133,7 +133,7 @@ cd dbdb
 ./mongodb/{create|start|stop|restart|port|status|connect|delete}.sh {name} {mongodbVersion} {port}
 
 # e.g.
-./mongodb/create.sh  mongo1 4.4.3 27017
+./mongodb/create.sh  mongo1 8.0.11 27017
 ./mongodb/start.sh   mongo1
 ./mongodb/stop.sh    mongo1
 ./mongodb/restart.sh mongo1
@@ -145,8 +145,8 @@ cd dbdb
 
 ### Supported MongoDB Versions
 
-- 4.4.10
-- 5.0.3
+- 7.0.21
+- 8.0.11
 
 </div></details>
 

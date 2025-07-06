@@ -7,10 +7,10 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest]
+        os: [macos-latest, ubuntu-22.04]
         test_script: [
-          mongodb-4.4.10.sh,
-          mongodb-5.0.3.sh,
+          mongodb-7.0.21.sh,
+          mongodb-8.0.11.sh,
           mysql-8.0.41.sh,
           mysql-8.4.4.sh,
           postgresql-12.4.sh,
@@ -20,10 +20,8 @@ jobs:
           memcached-1.6.31.sh
         ]
         exclude:
-          - {os: ubuntu-latest, test_script: mongodb-4.4.10.sh}
-          - {os: ubuntu-latest, test_script: mongodb-5.0.3.sh}
-          - {os: ubuntu-latest, test_script: postgresql-12.4.sh}
-          - {os: ubuntu-latest, test_script: postgresql-13.2.sh}
+          - {os: ubuntu-22.04, test_script: postgresql-12.4.sh}
+          - {os: ubuntu-22.04, test_script: postgresql-13.2.sh}
     steps:
       - uses: actions/checkout@v4
 
