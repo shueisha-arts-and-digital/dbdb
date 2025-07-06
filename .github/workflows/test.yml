@@ -7,26 +7,18 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-22.04]
+        os: [macos-latest, ubuntu-22.04]
         test_script: [
+          mongodb-6.0.24.sh,
+          mongodb-7.0.21.sh,
+          mysql-8.0.41.sh,
+          mysql-8.4.4.sh,
           postgresql-12.6.sh,
           postgresql-13.2.sh,
+          redis-6.2.14.sh,
+          redis-7.2.5.sh,
+          memcached-1.6.31.sh
         ]
-        # os: [macos-latest, ubuntu-22.04]
-        # test_script: [
-        #   mongodb-6.0.24.sh,
-        #   mongodb-7.0.21.sh,
-        #   mysql-8.0.41.sh,
-        #   mysql-8.4.4.sh,
-        #   postgresql-12.4.sh,
-        #   postgresql-13.2.sh,
-        #   redis-6.2.14.sh,
-        #   redis-7.2.5.sh,
-        #   memcached-1.6.31.sh
-        # ]
-        # exclude:
-        #   - {os: ubuntu-22.04, test_script: postgresql-12.4.sh}
-        #   - {os: ubuntu-22.04, test_script: postgresql-13.2.sh}
     steps:
       - uses: actions/checkout@v4
 
