@@ -18,4 +18,12 @@ dir=$installDir/versions/$optVersion
 
 exitIfNotExistDir $dir/datadir/$optName
 exitIfNotRunningPort $optPort
-$dir/basedir/bin/mongo --port $optPort
+# Try mongosh first, then mongo
+if [ -f "$dir/basedir/bin/mongosh" ]; then
+  $dir/basedir/bin/mongosh --port $optPort
+elif [ -f "$dir/basedir/bin/mongo" ]; then
+  $dir/basedir/bin/mongo --port $optPort
+else
+  echo "Neither mongosh nor mongo client found in $dir/basedir/bin/" 1>&2
+  exit 1
+fi

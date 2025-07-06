@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find:*)",
+      "Bash(./mongodb/status.sh:*)",
+      "WebFetch(domain:github.com)"
+    ],
+    "deny": []
+  }
+}
