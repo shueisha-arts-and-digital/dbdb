@@ -4,7 +4,7 @@ set -eu
 . ../lib/functions.sh
 
 type=postgresql
-version=12.4
+version=12.6
 
 cd ../$type/..
 

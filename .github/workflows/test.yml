@@ -9,7 +9,8 @@ jobs:
       matrix:
         os: [ubuntu-22.04]
         test_script: [
-          postgresql-12.4.sh,
+          postgresql-12.6.sh,
+          postgresql-13.2.sh,
         ]
         # os: [macos-latest, ubuntu-22.04]
         # test_script: [
