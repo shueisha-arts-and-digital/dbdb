@@ -41,7 +41,19 @@ dir=$installDir/versions/$optVersion
 exitIfNotExistDir $dir/datadir/$optName
 exitIfNotRunningPort $optPort
 
-status=$($dir/basedir/bin/mongo --port $optPort --quiet --eval "db.serverStatus().ok" 2>/dev/null || $dir/basedir/bin/mongosh --port $optPort --quiet --eval "db.serverStatus().ok")
+# Try mongosh first, then mongo, then fallback to port check
+if [ -f "$dir/basedir/bin/mongosh" ]; then
+  status=$($dir/basedir/bin/mongosh --port $optPort --quiet --eval "db.serverStatus().ok" 2>/dev/null)
+elif [ -f "$dir/basedir/bin/mongo" ]; then
+  status=$($dir/basedir/bin/mongo --port $optPort --quiet --eval "db.serverStatus().ok" 2>/dev/null)
+else
+  # Fallback: check if port is in use (1=running, 0=not running)
+  if nc -z 127.0.0.1 $optPort >/dev/null 2>&1; then
+    status="1"
+  else
+    status="0"
+  fi
+fi
 
 normalOutputs=""
 normalOutputs="${normalOutputs}$status"
