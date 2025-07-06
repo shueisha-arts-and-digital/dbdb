@@ -41,7 +41,7 @@ dir=$installDir/versions/$optVersion
 exitIfNotExistDir $dir/datadir/$optName
 exitIfNotRunningPort $optPort
 
-status=$($dir/basedir/bin/mongo --port $optPort --quiet --eval "db.serverStatus().ok")
+status=$($dir/basedir/bin/mongo --port $optPort --quiet --eval "db.serverStatus().ok" 2>/dev/null || $dir/basedir/bin/mongosh --port $optPort --quiet --eval "db.serverStatus().ok")
 
 normalOutputs=""
 normalOutputs="${normalOutputs}$status"
