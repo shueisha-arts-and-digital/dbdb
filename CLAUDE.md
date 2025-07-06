@@ -19,7 +19,7 @@ Examples:
 ```bash
 # Create and start databases
 ./mysql/create.sh mysql1 8.0.41 3306
-./mongodb/create.sh mongo1 8.0.11 27017
+./mongodb/create.sh mongo1 7.0.21 27017
 ./redis/create.sh redis1 6.2.14 6379
 
 # Use random port
@@ -28,6 +28,28 @@ Examples:
 # Create and start in one command
 ./mysql/create-start.sh mysql3 8.0.41 3306
 ```
+
+## Supported Versions
+
+### MySQL
+- linux-amd64: 5.7.31, 8.0.23, 8.0.30
+- macos-arm64: 8.0.28, 8.0.41, 8.4.4, 9.2.0
+
+### PostgreSQL
+- linux-amd64: 12.4, 12.6, 13.2
+- macos-arm64: 12.4, 12.6, 13.2
+
+### MongoDB
+- linux-amd64: 6.0.24, 7.0.21
+- macos-arm64: 6.0.24, 7.0.21
+
+### Redis
+- linux-amd64: 6.0.16, 6.2.14, 7.0.15, 7.2.5
+- macos-arm64: 6.0.16, 6.2.14, 7.0.15, 7.2.5
+
+### Memcached
+- linux-amd64: 1.6.31
+- macos-arm64: 1.6.31
 
 ## Testing
 
