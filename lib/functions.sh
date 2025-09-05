@@ -241,7 +241,7 @@ getInstallDir() {
   fi
 }
 
-# https://github.com/pj8/dbdb/issues/62
+# https://github.com/shueisha-arts-and-digital/dbdb/issues/62
 redisPatch() {
   if [[ $1 =~ ^6\.[0-9]+\.[0-9]+$ ]] && [ "$(getOS)" = "macos" ]; then
     sed -i '' '/#ifdef __APPLE__/a\

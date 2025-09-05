@@ -17,7 +17,7 @@
 ## インストール
 
 ```
-git clone https://github.com/pj8/dbdb.git
+git clone https://github.com/shueisha-arts-and-digital/dbdb.git
 cd dbdb
 ```
 
