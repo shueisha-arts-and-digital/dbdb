@@ -11,7 +11,7 @@ jobs:
         test_script: [
           mongodb-6.0.24.sh,
           mongodb-7.0.21.sh,
-          mysql-8.0.41.sh,
+          mysql-8.0.42.sh,
           mysql-8.4.4.sh,
           postgresql-12.6.sh,
           postgresql-13.2.sh,
