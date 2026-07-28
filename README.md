@@ -10,7 +10,9 @@
                 ||----w |
                 ||     ||
 ```
+
 ## Dependencies
+
 - `nc`
 - `wget` or `curl`
 
@@ -61,6 +63,7 @@ cd dbdb
 - arm64
   - 8.0.28 (arm64)
   - 8.0.41 (arm64)
+  - 8.0.42 (arm64)
   - 8.4.4 (arm64)
   - 9.2.0 (arm64)
 

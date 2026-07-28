@@ -17,14 +17,15 @@ version=$major.$minor.$patch
 url=https://dev.mysql.com/get/Downloads/MySQL-$major.$minor/mysql-$version-$osVer-arm64.tar.gz
 wget -O mysql-$version-macos.tar.gz "$url"
 
-## 8.0.40
+## 8.0.42
 major=8
 minor=0
-patch=40
+patch=42
 osVer=macos15
 version=$major.$minor.$patch
 url=https://dev.mysql.com/get/Downloads/MySQL-$major.$minor/mysql-$version-$osVer-arm64.tar.gz
 wget -O mysql-$version-macos.tar.gz "$url"
+
 ## 8.4.4
 major=8
 minor=4
