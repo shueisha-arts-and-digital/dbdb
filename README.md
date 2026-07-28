@@ -56,16 +56,14 @@ cd dbdb
 
 ### サポートしているMySQL Versions
 
-- x86_64
-  - 5.7.31 (x86_64)
-  - 8.0.23 (x86_64)
-  - 8.0.30 (x86_64)
-- arm64
-  - 8.0.28 (arm64)
-  - 8.0.41 (arm64)
-  - 8.0.42 (arm64)
-  - 8.4.4 (arm64)
-  - 9.2.0 (arm64)
+- 5.7.31 (macOS x86_64 / Linux x86_64)
+- 8.0.23 (macOS x86_64 / Linux x86_64)
+- 8.0.28 (macOS arm64 / Linux x86_64)
+- 8.0.30 (macOS x86_64 / Linux x86_64)
+- 8.0.41 (macOS arm64 / Linux x86_64)
+- 8.0.42 (macOS arm64 / Linux x86_64)
+- 8.4.4 (macOS arm64 / Linux x86_64)
+- 9.2.0 (macOS arm64 / Linux x86_64)
 
 </div></details>
 
