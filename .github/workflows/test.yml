@@ -62,3 +62,12 @@ jobs:
         run: |
           cd tests
           /bin/bash ${{ matrix.test_script }}
+
+      # TEMP: PostgreSQL のビルド失敗の原因調査用（調査後に削除する）
+      - name: Debug PostgreSQL build
+        if: failure() && runner.os == 'Linux' && startsWith(matrix.test_script, 'postgresql')
+        run: |
+          cd ~/.local/share/dbdb/postgresql/versions/*/basedir
+          gcc --version | head -1
+          tail -5 config.log || true
+          make 2>&1 | grep -E -m 30 -B2 'error|Error' || true
