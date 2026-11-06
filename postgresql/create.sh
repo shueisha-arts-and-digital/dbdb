@@ -52,7 +52,9 @@ if [ ! -d $dir/basedir/bin ]; then
   if [ $os = "linux" ]; then
     echo "Installing..." 1>&2
     cd $dir/basedir
-    ./configure --prefix=$(pwd) > /dev/null 2>&1
+    # PostgreSQL 16 より前は C23 でコンパイルできない。既定が C23 の gcc 15 以降でも通るよう、常に gnu11 を指定する（gnu17 と違い gcc 7 でも使える）
+    # CFLAGS が未設定のときだけ -O2 を付ける（configure の既定と同じ）。利用者の CFLAGS は残す
+    ./configure --prefix=$(pwd) CFLAGS="${CFLAGS--O2} -std=gnu11" > /dev/null 2>&1
     make > /dev/null 2>&1
     make install > /dev/null 2>&1
     rm -fr config contrib doc src

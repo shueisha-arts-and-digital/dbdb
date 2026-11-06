@@ -106,4 +106,4 @@ MongoDB scripts handle client tool evolution:
 
 ## GitHub Actions
 
-CI tests run on both macOS and Ubuntu 22.04, with some database versions excluded on specific platforms due to compatibility issues (e.g., GLIBC requirements).
+CI tests run on `macos-latest` and `ubuntu-latest` (`.github/workflows/test.yml`). Only the versions listed in the `test_script` matrix are tested. The Linux job installs the packages listed under "Linux（Ubuntu）" in README.md; keep the two in sync.
