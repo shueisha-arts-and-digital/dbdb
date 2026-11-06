@@ -44,6 +44,8 @@ jobs:
           sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
           sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
           sudo ldconfig
+          # PostgreSQL は Linux ではソースからビルドするため、configure が既定で要求する readline と zlib の開発用パッケージが要る
+          sudo apt-get install -y libreadline-dev zlib1g-dev
 
       # WARNING Memory overcommit must be enabled! Without it,
       # a background save or replication may fail under low memory condition. Being disabled,
