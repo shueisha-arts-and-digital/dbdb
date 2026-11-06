@@ -35,7 +35,7 @@ clone 先のディレクトリ名は `dbdb` のままにしてください。ス
 ./mysql/create.sh --help
 ```
 
-`connect.sh` は名前の後ろの引数をクライアントにそのまま渡すので、対話シェルを開かずにクエリを実行できます。
+MySQL / PostgreSQL / MongoDB / Redis の `connect.sh` は、名前の後ろの引数をクライアントにそのまま渡すので、対話シェルを開かずにクエリを実行できます。相対パスは実行したディレクトリを基準に解釈されます（Memcached はクライアントを同梱していないため、接続方法を表示するだけです）。
 
 ```
 ./mysql/connect.sh mysql1 -e 'SHOW DATABASES'

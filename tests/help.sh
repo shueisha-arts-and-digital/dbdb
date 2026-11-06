@@ -12,15 +12,27 @@ fail() {
   failures=$((failures + 1))
 }
 
+# Pass when the command exits 0 and its stdout has a line starting with the expected usage.
+expectHelp() {
+  local expected=$1
+  shift
+  local output
+  if ! output=$("$@"); then
+    fail "$* should exit 0"
+    return
+  fi
+  grep -q "^$expected" <<<"$output" || fail "$* should print '$expected'"
+}
+
 echo "# Test dbdb.sh --help"
-./dbdb.sh --help | grep -q "^Usage:" || fail "dbdb.sh --help"
+expectHelp "Usage:" ./dbdb.sh --help
 
 for type in "${types[@]}"; do
   for command in "${commands[@]}"; do
     script="./$type/$command.sh"
     echo "# Test $script --help"
-    "$script" --help | grep -q "^Usage: $script" || fail "$script --help"
-    "$script" -h | grep -q "^Usage: $script" || fail "$script -h"
+    expectHelp "Usage: $script" "$script" --help
+    expectHelp "Usage: $script" "$script" -h
 
     echo "# Test $script without arguments"
     if "$script" >/dev/null 2>&1; then

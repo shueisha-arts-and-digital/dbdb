@@ -267,7 +267,7 @@ getConnectionInfo() {
   postgresql) echo "host 127.0.0.1, port <port>, user postgres, no password, database postgres" ;;
   mongodb) echo "mongodb://127.0.0.1:<port>, no authentication" ;;
   redis) echo "redis://127.0.0.1:<port>, no password" ;;
-  memcached) echo "127.0.0.1:<port>, no authentication" ;;
+  memcached) echo "127.0.0.1:<port>, no authentication (listens on all interfaces)" ;;
   esac
 }
 

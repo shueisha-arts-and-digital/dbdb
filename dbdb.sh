@@ -40,7 +40,7 @@ Options:
 Supported versions:
   Differ by OS and CPU. See $dir/README.md
 
-Connection (all instances listen on 127.0.0.1 only):
+Connection (MySQL, PostgreSQL, MongoDB and Redis listen on localhost only):
 _EOT_
   for type in mysql postgresql mongodb redis memcached; do
     printf "  %-11s %s\n" "$type" "$(getConnectionInfo "$type")"
