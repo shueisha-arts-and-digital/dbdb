@@ -1,4 +1,6 @@
 #!/bin/bash
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 # Get format option
 format=""

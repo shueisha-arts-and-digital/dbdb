@@ -10,6 +10,61 @@ getInstallDir() {
   fi
 }
 
+printHelp() {
+  local dir
+  dir="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)"
+  . "$dir/lib/functions.sh"
+  cat <<_EOT_
+DBDB - database version manager for MySQL, PostgreSQL, MongoDB, Redis and Memcached
+
+Usage:
+  $dir/dbdb.sh [-f json]
+      List all instances with their type, version, port, status and data directory.
+  $dir/<type>/<command>.sh [options] <name> [...]
+      Manage one instance. Run any of them with --help for details.
+
+Types:
+  mysql postgresql mongodb redis memcached
+
+Commands:
+  create        <name> <version> <port|random>  Create an instance (not started)
+  create-start  <name> <version> <port|random>  Create the instance if missing, then start it
+  start | stop | restart | status | port  <name>
+  connect       <name> [client args...]  Open the client; extra args run it non-interactively
+  delete        <name>  Stop the instance and delete its data (no confirmation)
+
+Options:
+  -f json     Print the result as JSON (all commands except connect)
+  -h, --help  Show this help
+
+Supported versions:
+  Differ by OS and CPU. See $dir/README.md
+
+Connection (all instances listen on 127.0.0.1 only):
+_EOT_
+  for type in mysql postgresql mongodb redis memcached; do
+    printf "  %-11s %s\n" "$type" "$(getConnectionInfo "$type")"
+  done
+  cat <<_EOT_
+
+Data directory:
+  ${XDG_DATA_HOME:-$HOME/.local/share}/dbdb/<type>/versions/<version>/datadir/<name>
+  Server logs (mysqld.err, postgres.log, mongodb.log) are written there.
+
+Examples:
+  $dir/mysql/create-start.sh mysql1 8.0.41 3306
+  $dir/mysql/connect.sh mysql1 -e 'SHOW DATABASES'
+  $dir/dbdb.sh -f json
+_EOT_
+}
+
+case "${1:-}" in
+-h | --help)
+  printHelp
+  exit 0
+  ;;
+esac
+
 # Get format option
 format=""
 while getopts ":f:" opt; do

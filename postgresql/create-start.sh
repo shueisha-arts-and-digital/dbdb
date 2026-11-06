@@ -1,4 +1,6 @@
 #!/bin/bash
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 # Get format option
 format=""
@@ -24,17 +26,6 @@ currentDir="$(
   pwd -P
 )"
 cd $currentDir
-
-if [ $# -eq 0 ]; then
-  cat <<_EOT_ >&2
-usage : $currentDir/create.sh {Name} {PostgresqlVersion} {Port}
-e.g.  : $currentDir/create.sh pg124-foo 12.4 54321
-e.g.  : $currentDir/create.sh pg126-bar 12.6 54322
-e.g.  : $currentDir/create.sh pg132-baz 13.2 54323
-e.g.  : $currentDir/create.sh pg132-qux 13.2 random
-_EOT_
-  exit 1
-fi
 
 ./create.sh -f "$format" $1 $2 $3 > /dev/null
 set -eu

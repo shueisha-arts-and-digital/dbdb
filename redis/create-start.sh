@@ -1,4 +1,6 @@
 #!/bin/bash
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 # Get format option
 format=""
@@ -24,16 +26,6 @@ currentDir="$(
   pwd -P
 )"
 cd $currentDir
-
-if [ $# -eq 0 ]; then
-  cat <<_EOT_ >&2
-usage : $currentDir/create.sh {Name} {RedisVersion} {Port}
-e.g.  : $currentDir/create.sh redis60-bar 6.0.16 26379
-e.g.  : $currentDir/create.sh redis62-baz 6.2.6  36379
-e.g.  : $currentDir/create.sh redis62-qux 6.2.6  random
-_EOT_
-  exit 1
-fi
 
 ./create.sh -f "$format" $1 $2 $3 > /dev/null
 set -eu

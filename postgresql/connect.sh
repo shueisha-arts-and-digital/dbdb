@@ -1,9 +1,10 @@
 #!/bin/bash
 set -eu
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 currentDir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $currentDir
-. functions.sh
 
 optName=$1
 
@@ -18,4 +19,4 @@ dir=$installDir/versions/$optVersion
 
 exitIfNotExistDir $dir/datadir/$optName
 exitIfNotRunningPort $optPort
-PATH=$dir/basedir/bin:$PATH $dir/basedir/bin/psql -U postgres -p $optPort
+PATH=$dir/basedir/bin:$PATH $dir/basedir/bin/psql -U postgres -p $optPort "${@:2}"

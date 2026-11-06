@@ -1,9 +1,10 @@
 #!/bin/bash
 set -eu
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 currentDir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $currentDir
-. functions.sh
 
 optName=$1
 
@@ -20,9 +21,9 @@ exitIfNotExistDir $dir/datadir/$optName
 exitIfNotRunningPort $optPort
 # Try mongosh first, then mongo
 if [ -f "$dir/basedir/bin/mongosh" ]; then
-  $dir/basedir/bin/mongosh --port $optPort
+  $dir/basedir/bin/mongosh --port $optPort "${@:2}"
 elif [ -f "$dir/basedir/bin/mongo" ]; then
-  $dir/basedir/bin/mongo --port $optPort
+  $dir/basedir/bin/mongo --port $optPort "${@:2}"
 else
   echo "Neither mongosh nor mongo client found in $dir/basedir/bin/" 1>&2
   exit 1

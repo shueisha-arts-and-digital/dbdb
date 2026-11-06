@@ -1,5 +1,7 @@
 #!/bin/bash
 set -eu
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 # Get format option
 format=""
@@ -25,15 +27,6 @@ currentDir="$(
   pwd -P
 )"
 cd $currentDir
-. functions.sh
-
-if [ $# -eq 0 ]; then
-  cat <<_EOT_
-usage : $currentDir/port.sh {Name}
-e.g.  : $currentDir/port.sh database-foo
-_EOT_
-  exit 1
-fi
 
 optName=$1
 
