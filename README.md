@@ -20,17 +20,28 @@
 
 MySQL と PostgreSQL は追加のパッケージが必要です。
 
+MySQL（Ubuntu 24.04 以降）: t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になったため、MySQL が要求する `libaio.so.1` のリンクも作ります。
+
 ```
 sudo apt-get update
-# MySQL
 sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
 sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
 sudo ldconfig
-# PostgreSQL（Linux ではソースからビルドする）
-sudo apt-get install -y build-essential libreadline-dev zlib1g-dev
 ```
 
-- Ubuntu 24.04 以降は t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になったため、MySQL が要求する `libaio.so.1` のリンクを作ります。Ubuntu 22.04 では代わりに `libaio1` と `libssl3` を入れれば、リンクは不要です。
+MySQL（Ubuntu 22.04）: リンクは不要です。
+
+```
+sudo apt-get update
+sudo apt-get install -y libaio1 libnuma1 libmecab2 libssl3 libncurses6 libtinfo6
+```
+
+PostgreSQL: Linux ではソースからビルドします。
+
+```
+sudo apt-get update
+sudo apt-get install -y build-essential libreadline-dev zlib1g-dev
+```
 
 ## インストール
 
