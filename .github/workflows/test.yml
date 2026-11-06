@@ -1,6 +1,13 @@
 name: Test
 
-on: push
+on:
+  push:
+    # 動作に関係するファイルが変わったときだけ実行する（VERSION・*.md・skills/** だけの変更では走らない）
+    paths:
+      - '**/*.sh'
+      - 'lib/**'
+      - 'tests/**'
+      - '.github/workflows/test.yml'
 
 jobs:
   test:
