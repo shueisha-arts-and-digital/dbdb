@@ -96,6 +96,16 @@ export DBDB_HOME=/path/to/dbdb
 - 8.4.4 (macOS arm64 / Linux x86_64)
 - 9.2.0 (macOS arm64 / Linux x86_64)
 
+### Linux で必要なライブラリ
+
+Ubuntu 24.04 以降は t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になっているため、MySQL が起動できません。次のようにパッケージを入れて、`libaio.so.1` のリンクを作ってください（CI と同じ手順です）。
+
+```
+sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
+sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
+sudo ldconfig
+```
+
 </div></details>
 
 <details><summary>PostgreSQL</summary><div>
