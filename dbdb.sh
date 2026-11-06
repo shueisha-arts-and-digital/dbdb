@@ -34,8 +34,9 @@ Commands:
   delete        <name>  Stop the instance and delete its data (no confirmation)
 
 Options:
-  -f json     Print the result as JSON (all commands except connect)
-  -h, --help  Show this help
+  -f json        Print the result as JSON (all commands except connect)
+  -h, --help     Show this help
+  -v, --version  Show the dbdb version (dbdb.sh only)
 
 Supported versions:
   Differ by OS and CPU. See $dir/README.md
@@ -61,6 +62,10 @@ _EOT_
 case "${1:-}" in
 -h | --help)
   printHelp
+  exit 0
+  ;;
+-v | --version)
+  cat "$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)/VERSION"
   exit 0
   ;;
 esac

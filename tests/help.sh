@@ -27,6 +27,10 @@ expectHelp() {
 echo "# Test dbdb.sh --help"
 expectHelp "Usage:" ./dbdb.sh --help
 
+echo "# Test dbdb.sh --version"
+expectHelp "$(cat VERSION)" ./dbdb.sh --version
+expectHelp "$(cat VERSION)" ./dbdb.sh -v
+
 for type in "${types[@]}"; do
   for command in "${commands[@]}"; do
     script="./$type/$command.sh"
