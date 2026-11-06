@@ -16,6 +16,22 @@
 - `nc`
 - `wget` or `curl`
 
+### Linux（Ubuntu）
+
+MySQL と PostgreSQL は追加のパッケージが必要です。
+
+```
+sudo apt-get update
+# MySQL
+sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
+sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
+sudo ldconfig
+# PostgreSQL（Linux ではソースからビルドする）
+sudo apt-get install -y build-essential libreadline-dev zlib1g-dev
+```
+
+- Ubuntu 24.04 以降は t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になったため、MySQL が要求する `libaio.so.1` のリンクを作ります。Ubuntu 22.04 では代わりに `libaio1` と `libssl3` を入れれば、リンクは不要です。
+
 ## インストール
 
 ```
@@ -95,16 +111,6 @@ export DBDB_HOME=/path/to/dbdb
 - 8.0.42 (macOS arm64 / Linux x86_64)
 - 8.4.4 (macOS arm64 / Linux x86_64)
 - 9.2.0 (macOS arm64 / Linux x86_64)
-
-### Linux で必要なライブラリ
-
-Ubuntu 24.04 以降は t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になっているため、MySQL が起動できません。次のようにパッケージを入れて、`libaio.so.1` のリンクを作ってください（CI と同じ手順です）。
-
-```
-sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
-sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
-sudo ldconfig
-```
 
 </div></details>
 
