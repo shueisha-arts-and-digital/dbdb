@@ -241,6 +241,168 @@ getInstallDir() {
   fi
 }
 
+getTypeLabel() {
+  case "$1" in
+  mysql) echo "MySQL" ;;
+  postgresql) echo "PostgreSQL" ;;
+  mongodb) echo "MongoDB" ;;
+  redis) echo "Redis" ;;
+  memcached) echo "Memcached" ;;
+  esac
+}
+
+getExampleVersion() {
+  case "$1" in
+  mysql) echo "8.0.41" ;;
+  postgresql) echo "13.2" ;;
+  mongodb) echo "7.0.21" ;;
+  redis) echo "7.2.5" ;;
+  memcached) echo "1.6.31" ;;
+  esac
+}
+
+getConnectionInfo() {
+  case "$1" in
+  mysql) echo "host 127.0.0.1, port <port>, user root, no password" ;;
+  postgresql) echo "host 127.0.0.1, port <port>, user postgres, no password, database postgres" ;;
+  mongodb) echo "mongodb://127.0.0.1:<port>, no authentication" ;;
+  redis) echo "redis://127.0.0.1:<port>, no password" ;;
+  memcached) echo "127.0.0.1:<port>, no authentication (listens on all interfaces)" ;;
+  esac
+}
+
+getConnectClient() {
+  case "$1" in
+  mysql) echo "mysql" ;;
+  postgresql) echo "psql" ;;
+  mongodb) echo "mongosh (or mongo for old versions)" ;;
+  redis) echo "redis-cli" ;;
+  memcached) echo "" ;;
+  esac
+}
+
+getHelpArgs() {
+  local type=$1
+  local command=$2
+  case "$command" in
+  create | create-start) echo "<name> <version> <port|random>" ;;
+  connect) [ -n "$(getConnectClient "$type")" ] && echo "<name> [client args...]" || echo "<name>" ;;
+  *) echo "<name>" ;;
+  esac
+}
+
+printHelpDescription() {
+  local type=$1
+  local command=$2
+  local label
+  label=$(getTypeLabel "$type")
+  case "$command" in
+  create)
+    echo "Create a $label instance. It is not started; run start.sh next."
+    echo "The first create of a version downloads its binaries (some are built from source),"
+    echo "which can take several minutes."
+    ;;
+  create-start) echo "Create the $label instance if it does not exist, then start it." ;;
+  start) echo "Start the $label instance. Fails if its port is already in use." ;;
+  stop) echo "Stop the $label instance. Fails if it is not running." ;;
+  restart) echo "Stop the $label instance if it is running, then start it." ;;
+  port) echo "Print the port of the $label instance." ;;
+  status) echo "Print the server status of the running $label instance." ;;
+  connect) printConnectHelp "$type" ;;
+  delete)
+    echo "Stop the $label instance and delete its data directory."
+    echo "It does NOT ask for confirmation and cannot be undone."
+    ;;
+  esac
+}
+
+printConnectHelp() {
+  local type=$1
+  local client
+  client=$(getConnectClient "$type")
+  if [ -z "$client" ]; then
+    echo "Print how to connect to the running $(getTypeLabel "$type") instance (there is no bundled client)."
+  else
+    echo "Open $client for the running $(getTypeLabel "$type") instance."
+    echo "Arguments after <name> are passed to $client, which lets you run it non-interactively."
+  fi
+  echo "Connection: $(getConnectionInfo "$type")"
+}
+
+printHelpArguments() {
+  local type=$1
+  local command=$2
+  echo "Arguments:"
+  case "$command" in
+  create | create-start)
+    echo "  name         New instance name, unique within $type"
+    echo "  version      $(getTypeLabel "$type") version. Supported versions per OS/CPU: see README.md"
+    echo "  port         Port number, or \"random\" for a free port in 49152-65535"
+    ;;
+  *)
+    echo "  name         Instance name. List instances with dbdb.sh"
+    ;;
+  esac
+  if [ "$command" = "connect" ] && [ -n "$(getConnectClient "$type")" ]; then
+    echo "  client args  Passed to $(getConnectClient "$type") as is"
+  fi
+  return 0
+}
+
+printHelpExample() {
+  local type=$1
+  local command=$2
+  echo "Example:"
+  case "$command" in
+  create | create-start) echo "  $0 ${type}1 $(getExampleVersion "$type") random" ;;
+  connect) printConnectExample "$type" ;;
+  *) echo "  $0 ${type}1" ;;
+  esac
+}
+
+printConnectExample() {
+  case "$1" in
+  mysql) echo "  $0 mysql1 -e 'SELECT VERSION()'" ;;
+  postgresql) echo "  $0 postgresql1 -c 'SELECT version()'" ;;
+  mongodb) echo "  $0 mongodb1 --quiet --eval 'db.version()'" ;;
+  redis) echo "  $0 redis1 PING" ;;
+  memcached) echo "  $0 memcached1" ;;
+  esac
+}
+
+printHelp() {
+  local type command
+  type=$(getType)
+  command=$(basename "$0" .sh)
+  local formatOption="[-f json] "
+  [ "$command" = "connect" ] && formatOption=""
+  echo "Usage: $0 ${formatOption}$(getHelpArgs "$type" "$command")"
+  echo ""
+  printHelpDescription "$type" "$command"
+  echo ""
+  printHelpArguments "$type" "$command"
+  echo ""
+  echo "Options:"
+  [ "$command" != "connect" ] && echo "  -f json     Print the result as JSON"
+  echo "  -h, --help  Show this help"
+  echo ""
+  printHelpExample "$type" "$command"
+}
+
+# Show the help with -h/--help (exit 0) or when no arguments are given (exit 1).
+handleHelp() {
+  case "${1:-}" in
+  -h | --help)
+    printHelp
+    exit 0
+    ;;
+  "")
+    printHelp 1>&2
+    exit 1
+    ;;
+  esac
+}
+
 # https://github.com/shueisha-arts-and-digital/dbdb/issues/62
 redisPatch() {
   if [[ $1 =~ ^6\.[0-9]+\.[0-9]+$ ]] && [ "$(getOS)" = "macos" ]; then

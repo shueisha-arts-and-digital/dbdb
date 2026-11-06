@@ -1,9 +1,7 @@
 #!/bin/bash
 set -eu
-
-currentDir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-cd $currentDir
-. functions.sh
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 optName=$1
 
@@ -19,4 +17,4 @@ dir=$installDir/versions/$optVersion
 
 exitIfNotExistDir $dir/datadir/$optName
 exitIfNotRunningPort $optPort
-$dir/basedir/bin/mysql --user=root --host=localhost --port=$optPort --socket=$optSocket
+$dir/basedir/bin/mysql --user=root --host=localhost --port=$optPort --socket=$optSocket "${@:2}"

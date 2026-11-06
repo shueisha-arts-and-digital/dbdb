@@ -1,4 +1,6 @@
 #!/bin/bash
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 # Get format option
 format=""
@@ -24,16 +26,6 @@ currentDir="$(
   pwd -P
 )"
 cd $currentDir
-
-if [ $# -eq 0 ]; then
-  cat <<_EOT_ >&2
-usage : $currentDir/create.sh {Name} {MongodbVersion} {Port}
-e.g.  : $currentDir/create.sh mongo4-foo 4.4.10 27017
-e.g.  : $currentDir/create.sh mongo5-bar 5.0.3  37017
-e.g.  : $currentDir/create.sh mongo5-baz 5.0.3  random
-_EOT_
-  exit 1
-fi
 
 ./create.sh -f "$format" $1 $2 $3 > /dev/null
 set -eu

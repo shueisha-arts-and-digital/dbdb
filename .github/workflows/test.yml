@@ -9,6 +9,7 @@ jobs:
       matrix:
         os: [macos-latest, ubuntu-22.04]
         test_script: [
+          help.sh,
           mongodb-6.0.24.sh,
           mongodb-7.0.21.sh,
           mysql-8.0.42.sh,

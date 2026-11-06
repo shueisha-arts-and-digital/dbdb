@@ -23,6 +23,37 @@ git clone https://github.com/shueisha-arts-and-digital/dbdb.git
 cd dbdb
 ```
 
+clone 先のディレクトリ名は `dbdb` のままにしてください。スクリプトはパスに含まれる `/dbdb/<種別>` で DB の種別を判定します。
+
+## ヘルプ
+
+```
+# 全体像（コマンド一覧、接続情報、データの置き場所）
+./dbdb.sh --help
+
+# 各コマンドの引数と挙動
+./mysql/create.sh --help
+```
+
+MySQL / PostgreSQL / MongoDB / Redis の `connect.sh` は、名前の後ろの引数をクライアントにそのまま渡すので、対話シェルを開かずにクエリを実行できます。相対パスは実行したディレクトリを基準に解釈されます（Memcached はクライアントを同梱していないため、接続方法を表示するだけです）。
+
+```
+./mysql/connect.sh mysql1 -e 'SHOW DATABASES'
+./postgresql/connect.sh pg1 -c 'SELECT version()'
+./redis/connect.sh redis1 PING
+```
+
+## AI エージェント（Claude Code など）から使う
+
+`skills/dbdb` に Agent Skill を同梱しています。インストールすると、他のプロジェクトで作業中でも「MySQL 8.0 を立てて」のような依頼でエージェントが dbdb を使えるようになります。
+
+```
+npx skills add shueisha-arts-and-digital/dbdb
+
+# skill が dbdb の場所を見つけられるよう、clone 先を設定しておく
+export DBDB_HOME=/path/to/dbdb
+```
+
 <details><summary>MySQL</summary><div>
 
 ## MySQL

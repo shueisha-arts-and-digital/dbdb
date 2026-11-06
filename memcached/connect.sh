@@ -1,9 +1,7 @@
 #!/bin/bash
 set -eu
-
-currentDir="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-cd $currentDir
-. functions.sh
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 optName=$1
 

@@ -1,5 +1,7 @@
 #!/bin/bash
 set -eu
+. "$(dirname "$0")/functions.sh"
+handleHelp "$@"
 
 # Get format option
 format=""
@@ -25,7 +27,6 @@ currentDir="$(
   pwd -P
 )"
 cd $currentDir
-. functions.sh
 
 optName=$1
 
