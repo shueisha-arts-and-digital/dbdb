@@ -36,11 +36,12 @@ sudo apt-get update
 sudo apt-get install -y libaio1 libnuma1 libmecab2 libssl3 libncurses6 libtinfo6
 ```
 
-PostgreSQL: Linux ではソースからビルドします。
+PostgreSQL: Linux ではソースからビルドします。`initdb` は `en_US.UTF-8` ロケールを使うので、無ければ生成します。
 
 ```
 sudo apt-get update
-sudo apt-get install -y build-essential libreadline-dev zlib1g-dev
+sudo apt-get install -y build-essential libreadline-dev zlib1g-dev locales
+sudo locale-gen en_US.UTF-8
 ```
 
 ## インストール
