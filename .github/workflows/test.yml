@@ -1,6 +1,18 @@
 name: Test
 
-on: push
+on:
+  push:
+    # タグ push では paths が評価されず常に起動するため、ブランチ push に限定する
+    branches:
+      - '**'
+    # 動作に関係するファイルが変わったときだけ実行する（VERSION・*.md・skills/** だけの変更では走らない）
+    paths:
+      - '**/*.sh'
+      - 'lib/**'
+      - 'tests/**'
+      - '.github/workflows/test.yml'
+      - '!**/*.md'
+      - '!skills/**'
 
 jobs:
   test:
