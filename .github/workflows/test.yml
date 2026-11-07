@@ -44,8 +44,8 @@ jobs:
           sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
           sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
           # MySQL 同梱の mysql クライアントは libncurses.so.5 と libtinfo.so.5 を要求するが、Ubuntu 24.04 以降には 5 系のパッケージが無い
-          sudo ln -sf /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
-          sudo ln -sf /usr/lib/x86_64-linux-gnu/libtinfo.so.6 /usr/lib/x86_64-linux-gnu/libtinfo.so.5
+          [ -e /usr/lib/x86_64-linux-gnu/libncurses.so.5 ] || sudo ln -sf /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+          [ -e /usr/lib/x86_64-linux-gnu/libtinfo.so.5 ] || sudo ln -sf /usr/lib/x86_64-linux-gnu/libtinfo.so.6 /usr/lib/x86_64-linux-gnu/libtinfo.so.5
           sudo ldconfig
           # PostgreSQL は Linux ではソースからビルドするため、configure が既定で要求する readline と zlib の開発用パッケージが要る
           sudo apt-get install -y build-essential libreadline-dev zlib1g-dev locales
