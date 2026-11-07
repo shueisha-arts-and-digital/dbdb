@@ -19,6 +19,8 @@ echo "# Test port"
 ./$type/port.sh dbdb-test-$hash
 echo "# Test start"
 ./$type/start.sh dbdb-test-$hash
+echo "# Test connect"
+./$type/connect.sh dbdb-test-$hash -e 'SELECT VERSION()'
 echo "# Test status"
 ./$type/status.sh dbdb-test-$hash
 echo "# Test restart"

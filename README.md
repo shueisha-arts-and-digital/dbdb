@@ -20,20 +20,22 @@
 
 MySQL と PostgreSQL は追加のパッケージが必要です。
 
-MySQL（Ubuntu 24.04 以降）: t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になったため、MySQL が要求する `libaio.so.1` のリンクも作ります。
+MySQL（Ubuntu 24.04 以降）: t64 移行で `libaio.so.1` が `libaio.so.1t64` という名前になったため、MySQL が要求する `libaio.so.1` のリンクも作ります。また、MySQL 同梱の `mysql` クライアント（`connect.sh` が使う）は `libncurses.so.5` と `libtinfo.so.5` を要求しますが、Ubuntu 24.04 以降には 5 系のパッケージが無いため、6 系へのリンクを作ります（既に `.so.5` がある場合は上書きしません）。
 
 ```
 sudo apt-get update
 sudo apt-get install -y libaio1t64 libnuma1 libmecab2 libssl3t64 libncurses6 libtinfo6
 sudo ln -sf /usr/lib/x86_64-linux-gnu/libaio.so.1t64 /usr/lib/x86_64-linux-gnu/libaio.so.1
+[ -e /usr/lib/x86_64-linux-gnu/libncurses.so.5 ] || sudo ln -sf /usr/lib/x86_64-linux-gnu/libncurses.so.6 /usr/lib/x86_64-linux-gnu/libncurses.so.5
+[ -e /usr/lib/x86_64-linux-gnu/libtinfo.so.5 ] || sudo ln -sf /usr/lib/x86_64-linux-gnu/libtinfo.so.6 /usr/lib/x86_64-linux-gnu/libtinfo.so.5
 sudo ldconfig
 ```
 
-MySQL（Ubuntu 22.04）: リンクは不要です。
+MySQL（Ubuntu 22.04）: リンクは不要です。`libncurses5` と `libtinfo5` は universe リポジトリのパッケージです。
 
 ```
 sudo apt-get update
-sudo apt-get install -y libaio1 libnuma1 libmecab2 libssl3 libncurses6 libtinfo6
+sudo apt-get install -y libaio1 libnuma1 libmecab2 libssl3 libncurses5 libtinfo5
 ```
 
 PostgreSQL: Linux ではソースからビルドします。`initdb` は `en_US.UTF-8` ロケールを使うので、無ければ生成します。
