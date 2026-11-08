@@ -3,7 +3,7 @@ set -eu
 
 cd "$(dirname "$0")/.."
 
-types=(mysql postgresql mongodb redis memcached)
+types=(mysql postgresql mongodb redis memcached meilisearch)
 commands=(create create-start start stop restart port status connect delete)
 failures=0
 
