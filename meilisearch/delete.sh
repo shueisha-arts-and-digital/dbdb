@@ -43,7 +43,7 @@ dir=$installDir/versions/$optVersion
 set -eu
 exitIfNotExistDir $dir/datadir/$optName
 exitIfRunningPort $optPort
-[ -d "$dir/datadir/$optName" ] && rm -fr $dir/datadir/$optName
+[ -d "$dir/datadir/$optName" ] && rm -fr -- "$dir/datadir/$optName"
 
 normalOutputs=""
 normalOutputs="${normalOutputs}Meilisearch Successfully deleted. $optName $optVersion $optPort"

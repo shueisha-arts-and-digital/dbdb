@@ -44,12 +44,15 @@ exitIfNotExistDir $dataDir
 exitIfNotRunningPort $optPort
 
 if [ -f "$dataDir/meilisearch.pid" ]; then
-  pid=$(cat $dataDir/meilisearch.pid)
-  kill $pid
-  # wait for the process to exit so that the database lock is released
-  # (bounded, since an unreaped zombie still answers kill -0)
+  kill $(cat $dataDir/meilisearch.pid)
+  # SIGTERM ends Meilisearch at once, so the port closes when the process exits.
+  # Watch the port rather than the pid, which an unreaped zombie would keep answering.
   for i in $(seq 30); do
-    kill -0 $pid 2>/dev/null || break
+    nc -z 127.0.0.1 $optPort >/dev/null 2>&1 || break
+    if [ "$i" = 30 ]; then
+      echo "Meilisearch did not stop within 30 seconds." 1>&2
+      exit 1
+    fi
     sleep 1
   done
   rm -f $dataDir/meilisearch.pid
