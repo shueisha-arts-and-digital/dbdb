@@ -32,7 +32,8 @@ jobs:
           postgresql-13.2.sh,
           redis-6.2.14.sh,
           redis-7.2.5.sh,
-          memcached-1.6.31.sh
+          memcached-1.6.31.sh,
+          meilisearch-1.56.1.sh
         ]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1

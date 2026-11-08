@@ -1,6 +1,6 @@
 ---
 name: dbdb
-description: ローカル開発用の MySQL / PostgreSQL / MongoDB / Redis / Memcached を立てたい・起動停止したい・削除したいとき、特定バージョンの DB が必要なとき、ローカル DB の一覧・ポート・接続情報を知りたいとき、ローカル DB にクエリを流したいときに使う。「dbdb」「MySQL 8.0 を立てて」「Redis 起動して」「ローカルの DB 一覧」などの依頼が対象。
+description: ローカル開発用の MySQL / PostgreSQL / MongoDB / Redis / Memcached / Meilisearch を立てたい・起動停止したい・削除したいとき、特定バージョンの DB が必要なとき、ローカル DB の一覧・ポート・接続情報を知りたいとき、ローカル DB にクエリを流したいときに使う。「dbdb」「MySQL 8.0 を立てて」「Redis 起動して」「ローカルの DB 一覧」などの依頼が対象。
 ---
 
 # dbdb

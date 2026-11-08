@@ -15,7 +15,7 @@ printHelp() {
   dir="$(cd "$(dirname "$0")" >/dev/null 2>&1 && pwd -P)"
   . "$dir/lib/functions.sh"
   cat <<_EOT_
-DBDB - database version manager for MySQL, PostgreSQL, MongoDB, Redis and Memcached
+DBDB - database version manager for MySQL, PostgreSQL, MongoDB, Redis, Memcached and Meilisearch
 
 Usage:
   $dir/dbdb.sh [-f json]
@@ -24,7 +24,7 @@ Usage:
       Manage one instance. Run any of them with --help for details.
 
 Types:
-  mysql postgresql mongodb redis memcached
+  mysql postgresql mongodb redis memcached meilisearch
 
 Commands:
   create        <name> <version> <port|random>  Create an instance (not started)
@@ -41,16 +41,16 @@ Options:
 Supported versions:
   Differ by OS and CPU. See $dir/README.md
 
-Connection (MySQL, PostgreSQL, MongoDB and Redis listen on localhost only):
+Connection (MySQL, PostgreSQL, MongoDB, Redis and Meilisearch listen on localhost only):
 _EOT_
-  for type in mysql postgresql mongodb redis memcached; do
+  for type in mysql postgresql mongodb redis memcached meilisearch; do
     printf "  %-11s %s\n" "$type" "$(getConnectionInfo "$type")"
   done
   cat <<_EOT_
 
 Data directory:
   ${XDG_DATA_HOME:-$HOME/.local/share}/dbdb/<type>/versions/<version>/datadir/<name>
-  Server logs (mysqld.err, postgres.log, mongodb.log) are written there.
+  Server logs (mysqld.err, postgres.log, mongodb.log, meilisearch.log) are written there.
 
 Examples:
   $dir/mysql/create-start.sh mysql1 8.0.41 3306
@@ -103,7 +103,7 @@ installDir=$(getInstallDir)
 
 normalOutputs=""
 jsonOutputs=""
-dbTypes=(mongodb mysql postgresql redis memcached)
+dbTypes=(mongodb mysql postgresql redis memcached meilisearch)
 for dbType in "${dbTypes[@]}"; do
   for dbVersion in $(ls "$installDir/$dbType/versions" 2>/dev/null); do
     if [ -d "$installDir/$dbType/versions/$dbVersion" ]; then
@@ -154,6 +154,8 @@ for dbType in "${dbTypes[@]}"; do
               confName="$installDir/$dbType/versions/$dbVersion/datadir/$dbServerName/redis.conf"
             elif [ "$dbType" = "memcached" ];then
               confName=""
+            elif [ "$dbType" = "meilisearch" ];then
+              confName="$installDir/$dbType/versions/$dbVersion/datadir/$dbServerName/config.toml"
             fi
 
             # jsonOutputs

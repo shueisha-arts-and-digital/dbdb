@@ -14,7 +14,7 @@
 ## Dependencies
 
 - `nc`
-- `wget` or `curl`
+- `wget` or `curl`（Meilisearch の `status.sh` は `curl` を使います）
 
 ### Linux（Ubuntu）
 
@@ -65,7 +65,7 @@ clone 先のディレクトリ名は `dbdb` のままにしてください。ス
 ./mysql/create.sh --help
 ```
 
-MySQL / PostgreSQL / MongoDB / Redis の `connect.sh` は、名前の後ろの引数をクライアントにそのまま渡すので、対話シェルを開かずにクエリを実行できます。相対パスは実行したディレクトリを基準に解釈されます（Memcached はクライアントを同梱していないため、接続方法を表示するだけです）。
+MySQL / PostgreSQL / MongoDB / Redis の `connect.sh` は、名前の後ろの引数をクライアントにそのまま渡すので、対話シェルを開かずにクエリを実行できます。相対パスは実行したディレクトリを基準に解釈されます（Memcached と Meilisearch はクライアントを同梱していないため、接続方法を表示するだけです）。
 
 ```
 ./mysql/connect.sh mysql1 -e 'SHOW DATABASES'
@@ -232,6 +232,36 @@ export DBDB_HOME=/path/to/dbdb
 ### Supported Memcached Versions
 
 - 1.6.31
+
+</div></details>
+
+<details><summary>Meilisearch</summary><div>
+
+## Meilisearch
+
+### Commands for Meilisearch Server
+
+```
+./meilisearch/{create|start|stop|restart|port|status|connect|delete}.sh {name} {meilisearchVersion} {port}
+
+# e.g.
+./meilisearch/create.sh  meilisearch1 1.56.1 7700
+./meilisearch/start.sh   meilisearch1
+./meilisearch/stop.sh    meilisearch1
+./meilisearch/restart.sh meilisearch1
+./meilisearch/port.sh    meilisearch1
+./meilisearch/status.sh  meilisearch1
+./meilisearch/connect.sh meilisearch1
+./meilisearch/delete.sh  meilisearch1
+```
+
+公式の Community Edition（MIT ライセンス）のバイナリを [GitHub Releases](https://github.com/meilisearch/meilisearch/releases) から直接ダウンロードします。マスターキーなしの development モードで、`127.0.0.1` だけで待ち受けます。設定は datadir の `config.toml` に書けます。ただし `master_key` を設定すると、キーを渡さない `status.sh` は 401 で失敗します。
+
+動作要件は Meilisearch 公式に従い、Linux は x86_64 で glibc 2.35 以上（Ubuntu 22.04 以降など）、macOS は Apple Silicon で macOS 14 以降です。
+
+### Supported Meilisearch Versions
+
+- 1.56.1
 
 </div></details>
 

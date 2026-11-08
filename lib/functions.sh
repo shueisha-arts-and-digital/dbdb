@@ -65,7 +65,7 @@ getUrlFileAs() {
   if [ ! -e "$2" ]; then
     echo "Downloading... $1" 1>&2
     local temp_file="$2.tmp.$$"
-    if wget --server-response "$1" -O "$temp_file" 2>/dev/null || curl --fail --silent "$1" -o "$temp_file"; then
+    if wget --server-response "$1" -O "$temp_file" 2>/dev/null || curl --fail --silent --location "$1" -o "$temp_file"; then
       mv "$temp_file" "$2"
       return 0
     else
@@ -198,6 +198,8 @@ getType() {
     echo "redis"
   elif [[ "$(getCurrentDir)" == *"/dbdb/memcached"* ]]; then
     echo "memcached"
+  elif [[ "$(getCurrentDir)" == *"/dbdb/meilisearch"* ]]; then
+    echo "meilisearch"
   else
     echo "unknown database type" 1>&2
     exit 1
@@ -248,6 +250,7 @@ getTypeLabel() {
   mongodb) echo "MongoDB" ;;
   redis) echo "Redis" ;;
   memcached) echo "Memcached" ;;
+  meilisearch) echo "Meilisearch" ;;
   esac
 }
 
@@ -258,6 +261,7 @@ getExampleVersion() {
   mongodb) echo "7.0.21" ;;
   redis) echo "7.2.5" ;;
   memcached) echo "1.6.31" ;;
+  meilisearch) echo "1.56.1" ;;
   esac
 }
 
@@ -268,6 +272,7 @@ getConnectionInfo() {
   mongodb) echo "mongodb://127.0.0.1:<port>, no authentication" ;;
   redis) echo "redis://127.0.0.1:<port>, no password" ;;
   memcached) echo "127.0.0.1:<port>, no authentication (listens on all interfaces)" ;;
+  meilisearch) echo "http://127.0.0.1:<port>, no master key (development mode)" ;;
   esac
 }
 
@@ -278,6 +283,7 @@ getConnectClient() {
   mongodb) echo "mongosh (or mongo for old versions)" ;;
   redis) echo "redis-cli" ;;
   memcached) echo "" ;;
+  meilisearch) echo "" ;;
   esac
 }
 
@@ -367,6 +373,7 @@ printConnectExample() {
   mongodb) echo "  $0 mongodb1 --quiet --eval 'db.version()'" ;;
   redis) echo "  $0 redis1 PING" ;;
   memcached) echo "  $0 memcached1" ;;
+  meilisearch) echo "  $0 meilisearch1" ;;
   esac
 }
 
