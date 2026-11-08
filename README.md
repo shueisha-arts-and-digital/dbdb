@@ -255,7 +255,7 @@ export DBDB_HOME=/path/to/dbdb
 ./meilisearch/delete.sh  meilisearch1
 ```
 
-公式の Community Edition（MIT ライセンス）のバイナリを [GitHub Releases](https://github.com/meilisearch/meilisearch/releases) から直接ダウンロードします。マスターキーなしの development モードで、`127.0.0.1` だけで待ち受けます。設定は datadir の `config.toml` に書けます。
+公式の Community Edition（MIT ライセンス）のバイナリを [GitHub Releases](https://github.com/meilisearch/meilisearch/releases) から直接ダウンロードします。マスターキーなしの development モードで、`127.0.0.1` だけで待ち受けます。設定は datadir の `config.toml` に書けます。ただし `master_key` を設定すると、キーを渡さない `status.sh` は 401 で失敗します。
 
 動作要件は Meilisearch 公式に従い、Linux は x86_64 で glibc 2.35 以上（Ubuntu 22.04 以降など）、macOS は Apple Silicon で macOS 14 以降です。
 

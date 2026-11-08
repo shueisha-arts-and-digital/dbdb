@@ -53,8 +53,9 @@ jsonOutputs="$jsonOutputs{
 }"
 
 # Output
+# printf, not echo -e, so that escapes in the JSON from Meilisearch are kept as is
 if [ "$format" = "json" ]; then
-  echo -e "${jsonOutputs}"
+  printf '%s\n' "${jsonOutputs}"
 else
-  echo -e "${normalOutputs}"
+  printf '%s\n' "${normalOutputs}"
 fi

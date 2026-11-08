@@ -47,7 +47,9 @@ if [ -f "$dataDir/meilisearch.pid" ]; then
   pid=$(cat $dataDir/meilisearch.pid)
   kill $pid
   # wait for the process to exit so that the database lock is released
-  while kill -0 $pid 2>/dev/null; do
+  # (bounded, since an unreaped zombie still answers kill -0)
+  for i in $(seq 30); do
+    kill -0 $pid 2>/dev/null || break
     sleep 1
   done
   rm -f $dataDir/meilisearch.pid
